@@ -1,0 +1,371 @@
+[
+  {
+    "mitzvah_id": "189",
+    "hebrew_name": "שלא לאכול נבלה",
+    "english_name": "Not to eat a Neveilah",
+    "who_applies": "All People",
+    "when_applies": "All Times",
+    "where_applies": "All Places",
+    "punishment": "Malkus"
+  },
+  {
+    "mitzvah_id": "190",
+    "hebrew_name": "שלא לאכול אבר מן החי",
+    "english_name": "Not to eat the limb of a living animal",
+    "who_applies": "All People",
+    "when_applies": "All Times",
+    "where_applies": "All Places",
+    "punishment": "Malkus"
+  },
+  {
+    "mitzvah_id": "191",
+    "hebrew_name": "שלא לאכול דם בהמה חיה ועוף",
+    "english_name": "Not to eat the blood of animals and birds",
+    "who_applies": "All People",
+    "when_applies": "All Times",
+    "where_applies": "All Places",
+    "punishment": "Kares"
+  },
+  {
+    "mitzvah_id": "192",
+    "hebrew_name": "שלא לאכול חלב",
+    "english_name": "Not to eat Cheilev",
+    "who_applies": "All People",
+    "when_applies": "All Times",
+    "where_applies": "All Places",
+    "punishment": "Kares"
+  },
+  {
+    "mitzvah_id": "193",
+    "hebrew_name": "שלא לאכול גיד הנשה",
+    "english_name": "Not to eat the sciatic nerve of an animal",
+    "who_applies": "All People",
+    "when_applies": "All Times",
+    "where_applies": "All Places",
+    "punishment": "Malkus"
+  },
+  {
+    "mitzvah_id": "194",
+    "hebrew_name": "שלא לבשל בשר בחלב",
+    "english_name": "Do not cook meat with milk",
+    "who_applies": "All People",
+    "when_applies": "All Times",
+    "where_applies": "All Places",
+    "punishment": "Malkus"
+  },
+  {
+    "mitzvah_id": "195",
+    "hebrew_name": "שלא לאכול בשר בחלב",
+    "english_name": "Do not eat meat with milk",
+    "who_applies": "All People",
+    "when_applies": "All Times",
+    "where_applies": "All Places",
+    "punishment": "Malkus"
+  },
+  {
+    "mitzvah_id": "196",
+    "hebrew_name": "שלא לאכול לחם מהתבואה החדשה",
+    "english_name": "Do not eat bread from the new grain until after the Korban Omer",
+    "who_applies": "All People",
+    "when_applies": "All Times",
+    "where_applies": "All Places",
+    "punishment": "Malkus"
+  },
+  {
+    "mitzvah_id": "197",
+    "hebrew_name": "שלא לאכול קלי מהתבואה החדשה",
+    "english_name": "Do not eat roasted grain from the new grain until after the Korban Omer",
+    "who_applies": "All People",
+    "when_applies": "All Times",
+    "where_applies": "All Places",
+    "punishment": "Malkus"
+  },
+  {
+    "mitzvah_id": "198",
+    "hebrew_name": "שלא לאכול כרמל מהתבואה החדשה",
+    "english_name": "Do not eat fresh grain from the new grain until after the Korban Omer",
+    "who_applies": "All People",
+    "when_applies": "All Times",
+    "where_applies": "All Places",
+    "punishment": "Malkus"
+  },
+  {
+    "mitzvah_id": "199",
+    "hebrew_name": "שלא לאכול ערלה",
+    "english_name": "Do not eat Orlah",
+    "who_applies": "All People",
+    "when_applies": "All Times",
+    "where_applies": "All Places",
+    "punishment": "Malkus"
+  },
+  {
+    "mitzvah_id": "200",
+    "hebrew_name": "שלא לאכול טבל",
+    "english_name": "Not to eat Tevel",
+    "who_applies": "All People",
+    "when_applies": "All Times",
+    "where_applies": "All Places",
+    "punishment": "Misah Bidei Shamayim"
+  },
+  {
+    "mitzvah_id": "201",
+    "hebrew_name": "שלא לשתות יין נסך",
+    "english_name": "Do not drink wine poured for an idol",
+    "who_applies": "All People",
+    "when_applies": "All Times",
+    "where_applies": "All Places",
+    "punishment": "Malkus"
+  },
+  {
+    "mitzvah_id": "D8",
+    "hebrew_name": "מאכלי עכו\"ם",
+    "english_name": "Halachos of bread, dairy products, and cooked foods made by non-Jews",
+    "who_applies": "All People",
+    "when_applies": "All Times",
+    "where_applies": "All Places",
+    "punishment": "Not Applicable"
+  },
+  {
+    "mitzvah_id": "202",
+    "hebrew_name": "מצות שחיטה",
+    "english_name": "The Mitzvah of Shechitah",
+    "who_applies": "All People",
+    "when_applies": "All Times",
+    "where_applies": "All Places",
+    "punishment": "Not Applicable"
+  },
+  {
+    "mitzvah_id": "203",
+    "hebrew_name": "שלא לשחוט בהמה ובנה ביום אחד",
+    "english_name": "Not slaughtering an animal and its child in one day",
+    "who_applies": "All People",
+    "when_applies": "All Times",
+    "where_applies": "All Places",
+    "punishment": "Malkus"
+  },
+  {
+    "mitzvah_id": "204",
+    "hebrew_name": "מצות כיסוי הדם",
+    "english_name": "The obligation to cover the blood of a Shechted wild animal or bird",
+    "who_applies": "All People",
+    "when_applies": "All Times",
+    "where_applies": "All Places",
+    "punishment": "Not Applicable"
+  },
+  {
+    "mitzvah_id": "205",
+    "hebrew_name": "שלא ליקח האם מעל הבנים",
+    "english_name": "Not to take a mother bird with her young from her nest",
+    "who_applies": "All People",
+    "when_applies": "All Times",
+    "where_applies": "All Places",
+    "punishment": "Malkus"
+  },
+  {
+    "mitzvah_id": "206",
+    "hebrew_name": "מצות שילוח הקן",
+    "english_name": "The mitzvah of sending away the mother bird before taking the young",
+    "who_applies": "All People",
+    "when_applies": "All Times",
+    "where_applies": "All Places",
+    "punishment": "Not Applicable"
+  },
+  {
+    "mitzvah_id": "207",
+    "hebrew_name": "שלא להשבע לשקר",
+    "english_name": "Not to swear falsely",
+    "who_applies": "All People",
+    "when_applies": "All Times",
+    "where_applies": "All Places",
+    "punishment": "Malkus"
+  },
+  {
+    "mitzvah_id": "208",
+    "hebrew_name": "שלא להשבע לשוא",
+    "english_name": "Not swearing in vain",
+    "who_applies": "All People",
+    "when_applies": "All Times",
+    "where_applies": "All Places",
+    "punishment": "Malkus"
+  },
+  {
+    "mitzvah_id": "211",
+    "hebrew_name": "שלא להשבע על כפירת ממון",
+    "english_name": "Not to swear falsely to deny a debt",
+    "who_applies": "All People",
+    "when_applies": "All Times",
+    "where_applies": "All Places",
+    "punishment": "Korban"
+  },
+  {
+    "mitzvah_id": "214",
+    "hebrew_name": "מצות דין הפרת נדרים",
+    "english_name": "The mitzvah of canceling vows",
+    "who_applies": "Men",
+    "when_applies": "All Times",
+    "where_applies": "All Places",
+    "punishment": "Not Applicable"
+  },
+  {
+    "mitzvah_id": "225",
+    "hebrew_name": "מצות ערך אדם שניתן דמים הקצובים בתורה",
+    "english_name": "The mitzvah to donate the amount that the Torah says a person is worth",
+    "who_applies": "All People",
+    "when_applies": "All Times",
+    "where_applies": "All Places",
+    "punishment": "Not Applicable"
+  },
+  {
+    "mitzvah_id": "226",
+    "hebrew_name": "מצות ערך בהמה שניתן כפי שיעריכנה הכהן",
+    "english_name": "Go according to the calculated redemption amount if a non-kosher animal is donated to Hekdesh",
+    "who_applies": "All People",
+    "when_applies": "All Times",
+    "where_applies": "All Places",
+    "punishment": "Not Applicable"
+  },
+  {
+    "mitzvah_id": "227",
+    "hebrew_name": "מצות ערך בתים שניתן בערך שיעריכם הכהן והוספת חומש",
+    "english_name": "Go according to the calculated redemption amount if a house is donated to Hekdesh",
+    "who_applies": "All People",
+    "when_applies": "All Times",
+    "where_applies": "All Places",
+    "punishment": "Not Applicable"
+  },
+  {
+    "mitzvah_id": "228",
+    "hebrew_name": "מצות ערך שדה שניתן בערך הקצוב בפרשה",
+    "english_name": "Go according to the Torah’s redemption amount if a field is donated to Hekdesh",
+    "who_applies": "All People",
+    "when_applies": "All Times",
+    "where_applies": "All Places",
+    "punishment": "Not Applicable"
+  },
+  {
+    "mitzvah_id": "229",
+    "hebrew_name": "דין חרמים מנכסי שהוא לכהנים",
+    "english_name": "The law that an object put aside for Hashem belongs to the Kohanim",
+    "who_applies": "All People",
+    "when_applies": "All Times",
+    "where_applies": "All Places",
+    "punishment": "Not Applicable"
+  },
+  {
+    "mitzvah_id": "231",
+    "hebrew_name": "שלא יגאל שדה החרם",
+    "english_name": "A person should not redeem a field that was set aside for Hashem",
+    "who_applies": "All People",
+    "when_applies": "All Times",
+    "where_applies": "All Places",
+    "punishment": "No Punishment"
+  },
+  {
+    "mitzvah_id": "209",
+    "hebrew_name": "כל הצריך לישבע ישבע בשם השם",
+    "english_name": "Swearing in Hashem’s name",
+    "who_applies": "All People",
+    "when_applies": "All Times",
+    "where_applies": "All Places",
+    "punishment": "Not Applicable"
+  },
+  {
+    "mitzvah_id": "210",
+    "hebrew_name": "שלא יכחש על ממון שיש לאחר בידו",
+    "english_name": "Not to deny a debt",
+    "who_applies": "All People",
+    "when_applies": "All Times",
+    "where_applies": "All Places",
+    "punishment": "No Punishment"
+  },
+  {
+    "mitzvah_id": "212",
+    "hebrew_name": "מצות קיום מוצא שפתים",
+    "english_name": "The mitzvah of keeping our vows",
+    "who_applies": "All People",
+    "when_applies": "All Times",
+    "where_applies": "All Places",
+    "punishment": "Not Applicable"
+  },
+  {
+    "mitzvah_id": "213",
+    "hebrew_name": "שלא נחל דברינו בנדרים",
+    "english_name": "Not to break our vows",
+    "who_applies": "All People",
+    "when_applies": "All Times",
+    "where_applies": "All Places",
+    "punishment": "Malkus"
+  },
+  {
+    "mitzvah_id": "215",
+    "hebrew_name": "מצות גידול שער נזיר",
+    "english_name": "A Nazir must let his hair grow",
+    "who_applies": "All People",
+    "when_applies": "All Times",
+    "where_applies": "All Places",
+    "punishment": "Not Applicable"
+  },
+  {
+    "mitzvah_id": "216",
+    "hebrew_name": "שלא יגלח הנזיר שערו כל ימי נזרו",
+    "english_name": "Do not cut your hair while you are a Nazir",
+    "who_applies": "All People",
+    "when_applies": "All Times",
+    "where_applies": "All Places",
+    "punishment": "Malkus"
+  },
+  {
+    "mitzvah_id": "217",
+    "hebrew_name": "שלא ישתה הנזיר יין או כל מיני שכר",
+    "english_name": "Do not drink any grape beverages while you are a Nazir",
+    "who_applies": "All People",
+    "when_applies": "All Times",
+    "where_applies": "All Places",
+    "punishment": "Malkus"
+  },
+  {
+    "mitzvah_id": "218",
+    "hebrew_name": "שלא יאכל הנזיר ענבים לחים",
+    "english_name": "Do not eat grapes while you are a Nazir",
+    "who_applies": "All People",
+    "when_applies": "All Times",
+    "where_applies": "All Places",
+    "punishment": "Malkus"
+  },
+  {
+    "mitzvah_id": "219",
+    "hebrew_name": "שלא יאכל הנזיר צימוקים",
+    "english_name": "Do not eat raisins while you are a Nazir",
+    "who_applies": "All People",
+    "when_applies": "All Times",
+    "where_applies": "All Places",
+    "punishment": "Malkus"
+  },
+  {
+    "mitzvah_id": "220",
+    "hebrew_name": "שלא יאכל הנזיר זרע הענבים",
+    "english_name": "Do not eat the seeds of grapes while you are a Nazir",
+    "who_applies": "All People",
+    "when_applies": "All Times",
+    "where_applies": "All Places",
+    "punishment": "Malkus"
+  },
+  {
+    "mitzvah_id": "221",
+    "hebrew_name": "שלא יאכל הנזיר קליפת הענבים",
+    "english_name": "Do not eat the skin of grapes while you are a Nazir",
+    "who_applies": "All People",
+    "when_applies": "All Times",
+    "where_applies": "All Places",
+    "punishment": "Malkus"
+  },
+  {
+    "mitzvah_id": "222",
+    "hebrew_name": "שלא יכנס הנזיר לאהל המת",
+    "english_name": "Do not be under the same roof as a dead body while you are a Nazir",
+    "who_applies": "All People",
+    "when_applies": "All Times",
+    "where_applies": "All Places",
+    "punishment": "Malkus"
+  }
+]

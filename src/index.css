@@ -1,0 +1,61 @@
+@import "tailwindcss";
+@import url('https://fonts.googleapis.com/css2?family=David+Libre:wght@400;500;700&display=swap');
+
+/* Custom base styles */
+@layer base {
+  html {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  }
+  
+  body {
+    @apply bg-gradient-to-br from-blue-50 to-purple-50 min-h-screen;
+  }
+}
+
+/* Custom component styles */
+@layer components {
+  .card-container {
+    perspective: 1000px;
+  }
+
+  .card {
+    @apply relative w-full h-full transition-transform duration-500;
+    transform-style: preserve-3d;
+  }
+
+  .card.flipped {
+    transform: rotateY(180deg);
+  }
+
+  .card-face {
+    @apply absolute inset-0 w-full h-full flex items-center justify-center rounded-xl shadow-lg;
+    backface-visibility: hidden;
+  }
+
+  .card-front {
+    @apply bg-gradient-to-br from-blue-500 to-blue-700 text-white;
+  }
+
+  .card-back {
+    @apply bg-white border-2 border-gray-200;
+    transform: rotateY(180deg);
+  }
+
+  .btn-primary {
+    @apply px-6 py-3 bg-blue-600 hover:bg-blue-700 text-white font-semibold rounded-lg 
+           transition-colors duration-200 shadow-md hover:shadow-lg;
+  }
+
+  .btn-secondary {
+    @apply px-6 py-3 bg-gray-200 hover:bg-gray-300 text-gray-800 font-semibold rounded-lg 
+           transition-colors duration-200;
+  }
+}
+
+/* Utility styles */
+@layer utilities {
+  .text-hebrew {
+    font-family: 'David Libre', serif;
+    direction: rtl;
+  }
+}

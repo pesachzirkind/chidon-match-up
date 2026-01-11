@@ -1,0 +1,130 @@
+/* Selection-Based Card Styles */
+
+.card-container {
+  width: 100%;
+  height: 100%;
+}
+
+.card {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.3s ease;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.card:hover:not(.selected):not(.matched-hidden) {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 25px -5px rgba(0, 0, 0, 0.2);
+}
+
+/* Always visible card content */
+.card.visible {
+  background: white;
+  border: 2px solid #e5e7eb;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+/* Selected state - highlighted border */
+.card.selected {
+  border-color: #3b82f6;
+  border-width: 3px;
+  box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.3), 0 8px 25px -5px rgba(59, 130, 246, 0.3);
+  transform: scale(1.02);
+}
+
+/* Matched and hidden state - fades out */
+.card.matched-hidden {
+  opacity: 0;
+  pointer-events: none;
+  background: transparent;
+  border: 2px dashed #d1d5db;
+  box-shadow: none;
+}
+
+/* Card content area */
+.card-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  padding: 12px;
+  text-align: center;
+  color: #1f2937;
+}
+
+.card-content.hebrew {
+  font-family: 'David Libre', serif;
+  direction: rtl;
+  font-size: 1.1em;
+}
+
+/* Card type badges */
+.card-type-badge {
+  position: absolute;
+  top: 8px;
+  left: 8px;
+  font-size: 0.65rem;
+  padding: 2px 6px;
+  border-radius: 9999px;
+  background-color: rgba(59, 130, 246, 0.1);
+  color: #3b82f6;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+/* Selection pulse animation */
+@keyframes selectPulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(59, 130, 246, 0.5);
+  }
+  50% {
+    box-shadow: 0 0 0 8px rgba(59, 130, 246, 0.2);
+  }
+  100% {
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.3);
+  }
+}
+
+.card.selected {
+  animation: selectPulse 0.4s ease-out;
+}
+
+/* Match success fade out animation */
+@keyframes fadeOutMatch {
+  0% {
+    opacity: 1;
+    transform: scale(1);
+    border-color: #22c55e;
+  }
+  50% {
+    opacity: 0.5;
+    transform: scale(1.05);
+    border-color: #22c55e;
+    box-shadow: 0 0 0 8px rgba(34, 197, 94, 0.3);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+}
+
+.card.matched-hidden {
+  animation: fadeOutMatch 0.5s ease-out forwards;
+}
+
+/* Wrong selection shake animation */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  10%, 30%, 50%, 70%, 90% { transform: translateX(-5px); }
+  20%, 40%, 60%, 80% { transform: translateX(5px); }
+}
+
+.card.wrong {
+  animation: shake 0.5s ease-in-out;
+  border-color: #ef4444;
+}
