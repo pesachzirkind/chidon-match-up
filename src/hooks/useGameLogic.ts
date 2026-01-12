@@ -11,18 +11,20 @@ const mitzvos: Mitzvah[] = mitzvosData as Mitzvah[];
 
 /**
  * Validate if two cards form a match
+ * Uses match_key for text-based matching - allows attribute cards with the same value
+ * to match any mitzvah that expects that attribute value
  */
 export function validateMatch(card1: Card, card2: Card, levelConfig: LevelConfig): boolean {
-  // Cards must share the same mitzvah_id
-  if (card1.mitzvah_id !== card2.mitzvah_id) {
-    return false;
-  }
-  
   // Cards must be of different types (one type A, one type B)
   const hasTypeA = card1.card_type === levelConfig.card_type_a || card2.card_type === levelConfig.card_type_a;
   const hasTypeB = card1.card_type === levelConfig.card_type_b || card2.card_type === levelConfig.card_type_b;
   
-  return hasTypeA && hasTypeB;
+  if (!hasTypeA || !hasTypeB) {
+    return false;
+  }
+  
+  // Cards must share the same match_key (text-based matching)
+  return card1.match_key === card2.match_key;
 }
 
 /**

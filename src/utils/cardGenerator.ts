@@ -49,22 +49,29 @@ export function generateCardsForLevel(
   const cards: Card[] = [];
   
   for (const mitzvah of selectedMitzvos) {
-    // Create card type A
+    // Get the attribute value that both cards need to match on
+    const attributeValue = getCardDisplayText(mitzvah, levelConfig.card_type_b);
+    
+    // Create card type A (e.g., english_name)
+    // match_key = the expected attribute value from the mitzvah
     const cardA: Card = {
       card_id: uuidv4(),
       mitzvah_id: mitzvah.mitzvah_id,
       card_type: levelConfig.card_type_a,
       display_text: getCardDisplayText(mitzvah, levelConfig.card_type_a),
+      match_key: attributeValue,
       is_selected: false,
       is_matched: false,
     };
     
-    // Create card type B
+    // Create card type B (e.g., who_applies)
+    // match_key = the display_text (attribute value itself)
     const cardB: Card = {
       card_id: uuidv4(),
       mitzvah_id: mitzvah.mitzvah_id,
       card_type: levelConfig.card_type_b,
-      display_text: getCardDisplayText(mitzvah, levelConfig.card_type_b),
+      display_text: attributeValue,
+      match_key: attributeValue,
       is_selected: false,
       is_matched: false,
     };

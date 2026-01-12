@@ -24,6 +24,7 @@ export interface Card {
   mitzvah_id: string;        // Reference to parent mitzvah
   card_type: CardType;       // Which attribute this card represents
   display_text: string;      // Text shown on card face
+  match_key: string;         // For type_a: the expected attribute value; For type_b: the display_text (normalized)
   is_selected: boolean;      // Whether card is currently selected for matching
   is_matched: boolean;       // Whether card has been matched (will be hidden)
 }

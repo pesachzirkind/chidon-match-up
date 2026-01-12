@@ -1,219 +1,120 @@
 # Implementation Plan
 
 [Overview]
-Convert the memory flip card game to a direct-match selection game where all cards are visible and matched pairs disappear, with a timer tracking completion time.
+Fix the matching logic to use text-based matching instead of mitzvah_id matching for attribute cards.
 
-The current game operates as a traditional memory/flip game where cards start face-down and players flip two at a time to find matching pairs. The new implementation fundamentally changes the gameplay: all cards are visible from the start showing their content, players click to select two cards they believe are a match, correct matches cause the cards to disappear (fade out), and a timer tracks how long it takes to find all matches.
+Currently, the game validates matches by checking if both cards share the same `mitzvah_id`. This causes issues for levels 2-5 where many mitzvos share the same attribute values (e.g., "All People", "All Times", "All Places", "Malkus"). When a user clicks a mitzvah name card and then clicks an attribute card like "All People", the match fails because the cards have different `mitzvah_id` values, even though "All People" IS the correct answer for that mitzvah.
 
-This change transforms the game from a memory-based challenge to a knowledge-based quiz format, more suitable for testing understanding of mitzvah relationships rather than spatial memory. The timer adds a competitive element and allows players to track their improvement over multiple attempts.
+The fix changes the matching logic to:
+1. Identify which card is the "name" card (type_a - always a mitzvah name like hebrew_name or english_name)
+2. Identify which card is the "attribute" card (type_b - who/when/where/punishment)
+3. Validate that the attribute card's `display_text` matches what the name card's mitzvah expects for that attribute type
+
+This approach maintains all existing cards but allows any attribute card with the correct text to match any mitzvah that has that attribute value.
 
 [Types]
-Modify the Card interface and GameState to support selection-based gameplay with timer tracking.
+Add a `match_key` field to the Card interface to enable text-based matching.
 
-**File: `src/types/index.ts`**
-
-1. **Card interface changes:**
-   - Remove `is_face_up: boolean` (no longer needed - cards always visible)
-   - Add `is_selected: boolean` (tracks if card is currently selected for matching)
-   - Keep `is_matched: boolean` (but matched cards will be hidden, not just greyed)
-
-2. **GameState interface changes:**
-   - Rename `flippedCards: Card[]` to `selectedCards: Card[]`
-   - Add `startTime: number | null` (timestamp when timer started)
-   - Add `elapsedTime: number` (elapsed seconds since game start)
-   - Keep existing fields: currentLevel, cards, matchedPairs, totalPairs, score, combo, moves, gameStatus, feedbackMessage, feedbackMitzvah
-
-3. **GameAction type changes:**
-   - Rename `FLIP_CARD` to `SELECT_CARD`
-   - Add `UPDATE_TIMER` action type: `{ type: 'UPDATE_TIMER'; payload: { elapsedTime: number } }`
-
-**Updated Card interface:**
+The Card interface in `src/types/index.ts` will be extended with:
 ```typescript
 export interface Card {
-  card_id: string;
-  mitzvah_id: string;
-  card_type: CardType;
-  display_text: string;
-  is_selected: boolean;  // NEW - replaces is_face_up
-  is_matched: boolean;
+  card_id: string;           // UUID generated at runtime
+  mitzvah_id: string;        // Reference to parent mitzvah
+  card_type: CardType;       // Which attribute this card represents
+  display_text: string;      // Text shown on card face
+  match_key: string;         // For type_a: the expected attribute value; For type_b: the display_text (normalized)
+  is_selected: boolean;      // Whether card is currently selected for matching
+  is_matched: boolean;       // Whether card has been matched (will be hidden)
 }
 ```
 
-**Updated GameState interface:**
-```typescript
-export interface GameState {
-  currentLevel: number | null;
-  cards: Card[];
-  selectedCards: Card[];      // RENAMED from flippedCards
-  matchedPairs: number;
-  totalPairs: number;
-  score: number;
-  combo: number;
-  moves: number;
-  startTime: number | null;   // NEW
-  elapsedTime: number;        // NEW
-  gameStatus: 'idle' | 'playing' | 'checking' | 'complete';
-  feedbackMessage: string | null;
-  feedbackMitzvah: Mitzvah | null;
-}
-```
+The `match_key` enables efficient matching:
+- For a type_a card (e.g., english_name "Not to eat a Neveilah"), the `match_key` stores the expected attribute value (e.g., "All People" from the mitzvah's `who_applies` field)
+- For a type_b card (e.g., who_applies "All People"), the `match_key` is the `display_text` itself
 
-**Updated GameAction type:**
-```typescript
-export type GameAction =
-  | { type: 'START_GAME'; payload: { level: number; cards: Card[]; totalPairs: number } }
-  | { type: 'SELECT_CARD'; payload: { cardId: string } }  // RENAMED from FLIP_CARD
-  | { type: 'CHECK_MATCH' }
-  | { type: 'MATCH_SUCCESS' }
-  | { type: 'MATCH_FAILURE'; payload: { message: string; mitzvah: Mitzvah } }
-  | { type: 'CLEAR_SELECTED' }  // RENAMED from CLEAR_FLIPPED
-  | { type: 'CLEAR_FEEDBACK' }
-  | { type: 'UPDATE_TIMER'; payload: { elapsedTime: number } }  // NEW
-  | { type: 'RESET_GAME' };
-```
+Matching becomes: `card1.match_key === card2.match_key` (with appropriate type checking)
 
 [Files]
-Modify existing files to support the new selection-based gameplay and timer feature.
+Modify three existing files to implement text-based matching.
 
-**Files to modify:**
-1. `src/types/index.ts` - Type definitions as described above
-2. `src/context/GameContext.tsx` - Reducer logic for selection and timer
-3. `src/hooks/useGameLogic.ts` - Hook logic for selection and timer interval
-4. `src/components/Card/Card.tsx` - Display logic (always visible, selection highlight)
-5. `src/components/Card/Card.css` - Remove flip styles, add selection/disappear styles
-6. `src/components/ScoreBoard/ScoreBoard.tsx` - Add timer display
-7. `src/components/GameBoard/GameBoard.tsx` - Pass timer, filter hidden cards
-8. `src/components/GameOver/GameOver.tsx` - Display elapsed time in results
-9. `src/utils/cardGenerator.ts` - Initialize cards with `is_selected: false` instead of `is_face_up: false`
+Files to modify:
+1. `src/types/index.ts` - Add `match_key` field to Card interface
+2. `src/utils/cardGenerator.ts` - Generate `match_key` values when creating cards
+3. `src/hooks/useGameLogic.ts` - Update `validateMatch` function to use `match_key`
 
-**No new files needed.**
-**No files to delete.**
+No new files need to be created.
+No files need to be deleted.
 
 [Functions]
-Modify functions to handle card selection instead of flipping, and add timer management.
+Modify two functions and create one helper function.
 
-**File: `src/utils/cardGenerator.ts`**
-- Function: `generateCardsForLevel`
-  - Change: Replace `is_face_up: false` with `is_selected: false` when creating Card objects
+Functions to modify:
 
-**File: `src/context/GameContext.tsx`**
-- Function: `gameReducer`
-  - Modify `START_GAME` case: Initialize `startTime: Date.now()`, `elapsedTime: 0`, `selectedCards: []`
-  - Rename `FLIP_CARD` to `SELECT_CARD`: Toggle `is_selected` on card, add to `selectedCards` (max 2)
-  - Modify `MATCH_SUCCESS`: Set `is_matched: true` (cards will be hidden by component)
-  - Rename `CLEAR_FLIPPED` to `CLEAR_SELECTED`: Clear `is_selected` on non-matched cards
-  - Add `UPDATE_TIMER` case: Update `elapsedTime` from payload
-  - Modify `RESET_GAME`: Reset timer state
+1. **`generateCardsForLevel`** in `src/utils/cardGenerator.ts`
+   - Current: Creates cards with card_id, mitzvah_id, card_type, display_text, is_selected, is_matched
+   - Change: Add `match_key` field to each card
+   - For type_a card: `match_key = getCardDisplayText(mitzvah, levelConfig.card_type_b)` (the expected attribute value)
+   - For type_b card: `match_key = display_text` (the attribute value itself)
 
-**File: `src/hooks/useGameLogic.ts`**
-- Function: `useGameLogic`
-  - Rename internal function `flipCard` to `selectCard`
-  - Add `useEffect` for timer interval: setInterval every 1000ms while playing
-  - Dispatch `UPDATE_TIMER` with calculated elapsed time
-  - Clean up interval on unmount or game complete
-  - Return `selectCard` instead of `flipCard`, return `elapsedTime`
+2. **`validateMatch`** in `src/hooks/useGameLogic.ts`
+   - Current: Returns `card1.mitzvah_id === card2.mitzvah_id && hasTypeA && hasTypeB`
+   - Change: Returns `card1.match_key === card2.match_key && hasTypeA && hasTypeB`
+   - The function already verifies one card is type_a and one is type_b, so match_key comparison is sufficient
 
-**File: `src/components/Card/Card.tsx`**
-- Function: `Card` component
-  - Remove flip state logic (`is_face_up` checks)
-  - Add selection state: highlight border when `is_selected`
-  - Return `null` when `is_matched` (hide card completely)
-  - Update click handler: only disabled if already selected or matched
-
-**File: `src/components/ScoreBoard/ScoreBoard.tsx`**
-- Function: `ScoreBoard` component
-  - Add `elapsedTime: number` prop
-  - Add timer display showing MM:SS format
-  - Create helper function `formatTime(seconds: number): string`
-
-**File: `src/components/GameBoard/GameBoard.tsx`**
-- Function: `GameBoard` component
-  - Add `elapsedTime: number` prop
-  - Pass `elapsedTime` to ScoreBoard
-  - Remove filtering (let Card handle visibility)
-
-**File: `src/components/GameOver/GameOver.tsx`**
-- Function: `GameOver` component
-  - Add `elapsedTime: number` prop
-  - Display formatted time in stats grid
-  - Optional: Add time-based performance message
-
-**File: `src/App.tsx`**
-- Function: `GameApp` component
-  - Rename `flipCard` to `selectCard` in destructured values
-  - Pass `elapsedTime` to GameBoard and GameOver
+Helper function (no change needed - already exists):
+- **`getCardDisplayText`** in `src/utils/cardGenerator.ts` - Already extracts attribute values from mitzvah
 
 [Classes]
-No class modifications required. The codebase uses functional components exclusively.
+No class modifications needed.
+
+This codebase uses functional components and hooks rather than classes. All changes are to functions and interfaces.
 
 [Dependencies]
-No new dependencies required. The timer functionality will be implemented using native JavaScript `Date.now()` and React's `useEffect` with `setInterval`.
+No dependency changes needed.
+
+All required functionality exists within the current dependencies. The changes are purely to application logic.
 
 [Testing]
-Manual testing approach for the changes.
+Manual testing steps to validate the fix.
 
-**Test scenarios:**
-1. Start a game - verify all cards are visible immediately (no face-down cards)
-2. Click one card - verify it shows selection highlight (border/shadow change)
-3. Click same card again - verify it deselects
-4. Click second card (matching pair) - verify both cards fade out and disappear
-5. Click second card (non-matching) - verify feedback modal appears, cards deselect after closing
-6. Timer - verify it starts at 0:00 when game begins
-7. Timer - verify it increments every second during gameplay
-8. Timer - verify it stops when all matches found
-9. Game over - verify elapsed time is displayed in final stats
-10. Play again - verify timer resets to 0:00
+Test scenarios:
 
-**Edge cases:**
-- Rapidly clicking multiple cards
-- Clicking matched (hidden) cards should have no effect
-- Timer continues during feedback modal display
+1. **Level 2 - Who Applies (Primary Test Case)**
+   - Start Level 2 (english_name ↔ who_applies)
+   - Find two different mitzvos that both have "All People" as who_applies
+   - Click on one mitzvah's english_name card
+   - Click on any "All People" card (even if it has a different mitzvah_id)
+   - Expected: Match should succeed, both cards should be marked as matched
+
+2. **Level 1 - Hebrew ↔ English (Regression Test)**
+   - Level 1 should still work correctly since each mitzvah has unique hebrew/english names
+   - Verify matches still require correct pairs
+
+3. **Levels 3-5 (When/Where/Punishment)**
+   - Test that cards with shared values (All Times, All Places, Malkus, etc.) can correctly match
+   - Test that incorrect matches are still rejected (e.g., "Men" should not match a mitzvah with "All People")
+
+4. **Edge Case: Feedback Messages**
+   - When a match fails, verify the feedback modal still shows the correct mitzvah information
+   - The feedback should reference the first selected card's mitzvah
 
 [Implementation Order]
-Implement changes in dependency order to minimize breaking changes during development.
+Sequential steps to implement the fix safely.
 
-1. **Update types** (`src/types/index.ts`)
-   - Add new fields to Card and GameState interfaces
-   - Update GameAction type
-   - This may cause TypeScript errors in other files temporarily
+1. **Update Types** (`src/types/index.ts`)
+   - Add `match_key: string` field to the Card interface
+   - This is a non-breaking change as we'll add defaults
 
-2. **Update card generator** (`src/utils/cardGenerator.ts`)
-   - Change `is_face_up: false` to `is_selected: false`
-   - Quick fix to align with new Card interface
+2. **Update Card Generator** (`src/utils/cardGenerator.ts`)
+   - Modify `generateCardsForLevel` to compute and assign `match_key` values
+   - For type_a cards: match_key = expected attribute value from mitzvah
+   - For type_b cards: match_key = the display_text (attribute value)
 
-3. **Update game context/reducer** (`src/context/GameContext.tsx`)
-   - Update initial state with new fields
-   - Rename and modify action handlers
-   - Add timer action handler
-   - Update state references from flippedCards to selectedCards
+3. **Update Match Validation** (`src/hooks/useGameLogic.ts`)
+   - Change `validateMatch` function to compare `match_key` instead of `mitzvah_id`
+   - Keep the type checking (hasTypeA && hasTypeB) as-is
 
-4. **Update game logic hook** (`src/hooks/useGameLogic.ts`)
-   - Rename flipCard to selectCard
-   - Add timer useEffect with interval
-   - Return new values (selectCard, elapsedTime)
-
-5. **Update Card component and CSS** (`src/components/Card/Card.tsx`, `Card.css`)
-   - Remove flip animation and face-down rendering
-   - Add selection highlight styles
-   - Add matched card hiding (return null)
-   - Update click handler logic
-
-6. **Update ScoreBoard** (`src/components/ScoreBoard/ScoreBoard.tsx`)
-   - Add timer prop and display
-   - Add formatTime helper
-
-7. **Update GameBoard** (`src/components/GameBoard/GameBoard.tsx`)
-   - Add elapsedTime prop
-   - Pass to ScoreBoard
-
-8. **Update GameOver** (`src/components/GameOver/GameOver.tsx`)
-   - Add elapsedTime prop
-   - Display formatted time in results
-
-9. **Update App** (`src/App.tsx`)
-   - Rename flipCard to selectCard
-   - Pass elapsedTime to components
-
-10. **Testing and refinement**
-    - Test all scenarios listed above
-    - Adjust animations and timing as needed
+4. **Manual Testing**
+   - Test Level 2 with shared "All People" values
+   - Test all levels for regressions
+   - Verify feedback messages work correctly
