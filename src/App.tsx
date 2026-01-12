@@ -1,4 +1,3 @@
-import React from 'react';
 import { GameProvider } from './context/GameContext';
 import { useGameLogic } from './hooks/useGameLogic';
 import { getLevelConfig } from './data/levels';

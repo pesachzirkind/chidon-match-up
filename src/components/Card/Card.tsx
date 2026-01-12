@@ -1,5 +1,4 @@
-import React from 'react';
-import type { Card as CardType, CardType as CardTypeEnum } from '../../types';
+import type { Card as CardType } from '../../types';
 import { getCardTypeLabel } from '../../utils/feedback';
 import './Card.css';
 

@@ -1,4 +1,3 @@
-import React from 'react';
 import type { Card as CardType } from '../../types';
 import Card from '../Card/Card';
 import ScoreBoard from '../ScoreBoard/ScoreBoard';

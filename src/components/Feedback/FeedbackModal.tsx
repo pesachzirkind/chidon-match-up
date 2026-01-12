@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import type { Mitzvah } from '../../types';
 import Button from '../Button/Button';
 

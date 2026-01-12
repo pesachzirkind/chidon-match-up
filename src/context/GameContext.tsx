@@ -1,5 +1,5 @@
-import React, { createContext, useContext, useReducer, type ReactNode, type Dispatch } from 'react';
-import type { GameState, GameAction, Card, Mitzvah } from '../types';
+import { createContext, useContext, useReducer, type ReactNode, type Dispatch } from 'react';
+import type { GameState, GameAction } from '../types';
 
 // Initial state
 const initialState: GameState = {

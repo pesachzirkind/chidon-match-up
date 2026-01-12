@@ -1,6 +1,4 @@
-import React from 'react';
 import { LEVEL_CONFIGS } from '../../data/levels';
-import Button from '../Button/Button';
 
 interface LevelSelectProps {
   onSelectLevel: (level: number) => void;
